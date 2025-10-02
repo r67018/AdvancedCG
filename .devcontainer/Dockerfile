@@ -22,6 +22,8 @@ RUN apt-get update && apt-get install -y \
     libglfw3-dev \
     # GLM（数学ライブラリ）
     libglm-dev \
+    # DevIL（画像読み込みライブラリ）
+    libdevil-dev \
     # X11関連（GUIアプリケーション用）
     xorg-dev \
     libx11-dev \
