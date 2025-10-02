@@ -85,12 +85,12 @@ void Scene01Checker2D::Draw() {
 
 	s_pShader->use();
 	// TODO: uncomment these lines
-	// s_pShader->sendUniform4f("checkerColor0", s_CheckerColor0.x,
-	// s_CheckerColor0.y, s_CheckerColor0.z, s_CheckerColor0.w);
-	// s_pShader->sendUniform4f("checkerColor1", s_CheckerColor1.x,
-	// s_CheckerColor1.y, s_CheckerColor1.z, s_CheckerColor1.w);
-	// s_pShader->sendUniform2f("checkerScale", s_CheckerScale.x,
-	// s_CheckerScale.y);
+	s_pShader->sendUniform4f("checkerColor0", s_CheckerColor0.x,
+	s_CheckerColor0.y, s_CheckerColor0.z, s_CheckerColor0.w);
+	s_pShader->sendUniform4f("checkerColor1", s_CheckerColor1.x,
+	s_CheckerColor1.y, s_CheckerColor1.z, s_CheckerColor1.w);
+	s_pShader->sendUniform2f("checkerScale", s_CheckerScale.x,
+	s_CheckerScale.y);
 
 	glBindVertexArray(s_VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);

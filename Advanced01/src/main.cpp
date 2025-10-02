@@ -139,6 +139,12 @@ int main(int argc, char **argv)
 #endif
 
 	GLFWwindow* pWindow = glfwCreateWindow(800, 800, "Advanced CG 01: Assignments", NULL, NULL);
+	if (!pWindow)
+	{
+		cerr << "Failed to create GLFW window. Make sure you have a display or use xvfb-run." << endl;
+		glfwTerminate();
+		return 1;
+	}
 
 	glfwMakeContextCurrent(pWindow);
 	glewExperimental = GL_TRUE;
