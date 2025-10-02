@@ -1,0 +1,61 @@
+{
+  "name": "OpenGL 3.0 Development Environment",
+  "build": {
+    "dockerfile": "./Dockerfile",
+    "context": ".."
+  },
+  
+  // コンテナの設定
+  "runArgs": [
+    "--cap-add=SYS_PTRACE",
+    "--security-opt", "seccomp=unconfined"
+  ],
+
+  // ワークスペースのマウント
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+
+  // 環境変数
+  "containerEnv": {
+    "DISPLAY": ":99"
+  },
+
+  // VSCode拡張機能
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.cmake-tools",
+        "twxs.cmake",
+        "jeff-hykin.better-cpp-syntax",
+        "slevesque.shader",
+        "raczzalan.webgl-glsl-editor"
+      ],
+      "settings": {
+        "C_Cpp.default.cppStandard": "c++17",
+        "C_Cpp.default.cStandard": "c11",
+        "cmake.configureOnOpen": false,
+        "files.associations": {
+          "*.glsl": "glsl",
+          "*.vert": "glsl",
+          "*.frag": "glsl",
+          "*.vs": "glsl",
+          "*.fs": "glsl"
+        }
+      }
+    }
+  },
+
+  // コンテナ起動後に実行するコマンド
+  "postCreateCommand": "echo 'OpenGL Development Environment Ready!'",
+
+  // ポートフォワーディング（必要に応じて）
+  "forwardPorts": [],
+
+  // コンテナ作成後の初回コマンド
+  "postStartCommand": "Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &",
+
+  // リモートユーザー
+  "remoteUser": "root"
+}
