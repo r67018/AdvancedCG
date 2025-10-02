@@ -33,6 +33,10 @@ RUN apt-get update && apt-get install -y \
     libxi-dev \
     # Xvfb（仮想ディスプレイ）
     xvfb \
+    # VNC関連（リモートGUI表示用）
+    x11vnc \
+    python3 \
+    python3-pip \
     # 追加の便利なツール
     gdb \
     valgrind \
@@ -40,9 +44,22 @@ RUN apt-get update && apt-get install -y \
     nano \
     && rm -rf /var/lib/apt/lists/*
 
-# Xvfbの起動スクリプト
+# websockify（noVNC用）をインストール
+RUN pip3 install websockify
+
+# noVNCをインストール（オプション：Webブラウザからのアクセス用）
+RUN git clone https://github.com/novnc/noVNC.git /usr/share/novnc && \
+    cd /usr/share/novnc && \
+    git checkout v1.4.0
+
+# VNCサービス起動スクリプト
 RUN echo '#!/bin/bash\n\
-Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &\n\
+# Start VNC services in the background\n\
+setsid Xvfb :99 -screen 0 1280x1024x24 > /tmp/xvfb.log 2>&1 &\n\
+sleep 2\n\
+setsid x11vnc -display :99 -forever -nopw -shared -rfbport 5901 > /tmp/x11vnc.log 2>&1 &\n\
+sleep 2\n\
+setsid websockify --web=/usr/share/novnc 6080 localhost:5901 > /tmp/websockify.log 2>&1 &\n\
 exec "$@"' > /usr/local/bin/entrypoint.sh && \
     chmod +x /usr/local/bin/entrypoint.sh
 

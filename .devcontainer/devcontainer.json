@@ -15,11 +15,6 @@
   "workspaceFolder": "/workspace",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
 
-  // 環境変数
-  "containerEnv": {
-    "DISPLAY": ":99"
-  },
-
   // VSCode拡張機能
   "customizations": {
     "vscode": {
@@ -48,13 +43,23 @@
   },
 
   // コンテナ起動後に実行するコマンド
-  "postCreateCommand": "echo 'OpenGL Development Environment Ready!'",
+  "postCreateCommand": "echo 'export DISPLAY=:99' >> ~/.bashrc && chmod +x /workspace/.devcontainer/*.sh && echo 'OpenGL Development Environment Ready!'",
+
+  // コンテナ起動時に毎回実行するコマンド
+  "postStartCommand": "bash -c 'setsid bash /workspace/.devcontainer/start-display.sh > /tmp/vnc-startup.log 2>&1 < /dev/null &' && sleep 8 && cat /tmp/vnc-startup.log",
 
   // ポートフォワーディング（必要に応じて）
-  "forwardPorts": [],
-
-  // コンテナ作成後の初回コマンド
-  "postStartCommand": "Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &",
+  "forwardPorts": [5901, 6080],
+  "portsAttributes": {
+    "5901": {
+      "label": "VNC Server",
+      "onAutoForward": "notify"
+    },
+    "6080": {
+      "label": "noVNC Web Client",
+      "onAutoForward": "openPreview"
+    }
+  },
 
   // リモートユーザー
   "remoteUser": "root"
