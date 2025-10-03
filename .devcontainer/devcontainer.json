@@ -11,6 +11,11 @@
     "--security-opt", "seccomp=unconfined"
   ],
 
+  // SSH Agent フォワーディングの設定
+  "mounts": [
+    "source=${localEnv:HOME}/.1password/agent.sock,target=/ssh-agent,type=bind"
+  ],
+
   // ワークスペースのマウント
   "workspaceFolder": "/workspace",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
@@ -43,7 +48,7 @@
   },
 
   // コンテナ起動後に実行するコマンド
-  "postCreateCommand": "echo 'export DISPLAY=:99' >> ~/.bashrc && chmod +x /workspace/.devcontainer/*.sh && echo 'OpenGL Development Environment Ready!'",
+  "postCreateCommand": "echo 'export DISPLAY=:99' >> ~/.bashrc && echo 'export SSH_AUTH_SOCK=/ssh-agent' >> ~/.bashrc && chmod +x /workspace/.devcontainer/*.sh && /workspace/.devcontainer/setup-1password-ssh.sh && echo 'OpenGL Development Environment Ready!'",
 
   // コンテナ起動時に毎回実行するコマンド
   "postStartCommand": "bash -c 'setsid bash /workspace/.devcontainer/start-display.sh > /tmp/vnc-startup.log 2>&1 < /dev/null &' && sleep 8 && cat /tmp/vnc-startup.log",
