@@ -21,7 +21,7 @@ void main()
 	vec3 ref = reflect(vWorldEyeDir, vWorldNormal);
 	float theta = asin(ref.y);
 	float phi = atan(ref.z, ref.x);
-	vec2 uv = vec2((phi + PI) / (2.0 * PI), 1.0 - (theta + PI/2.0) / PI);
+	vec2 uv = vec2((phi + PI) / (2.0 * PI), 1.0 - (theta + PI / 2.0) / PI);
 	vec4 color = texture2D(envmap, uv);
 	fragColor = color;
 }
