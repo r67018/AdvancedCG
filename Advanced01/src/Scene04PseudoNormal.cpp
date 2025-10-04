@@ -151,7 +151,7 @@ void Scene04PseudoNormal::Draw()
 	if (s_RenderType == Render_Texture)
 	{
 		glBindTexture(GL_TEXTURE_2D, s_TriMesh.getTexID());
-		
+
 		s_pTexShader->use();
 		s_pTexShader->sendUniform1i("tex", 0);
 		//s_pTexShader->sendUniformMatrix4fv("projModelViewMatrix", glm::value_ptr(projMatrix * modelViewMatrix));
@@ -181,7 +181,7 @@ void Scene04PseudoNormal::Draw()
 		//s_pShader->sendUniformMatrix4fv("projMatrix", glm::value_ptr(projMatrix));
 		s_pShader->sendUniformMatrix4fv("projMatrix", glm::value_ptr(g_ProjMatrix));
 		// TODO: uncomment these lines
-		//s_pShader->sendUniformMatrix3fv("modelViewInvTransposed", glm::value_ptr(modelViewInvTransposed));
+		s_pShader->sendUniformMatrix3fv("modelViewInvTransposed", glm::value_ptr(modelViewInvTransposed));
 
 		glBindVertexArray(s_NormalVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3 * s_TriMesh.getNumTriangles());
