@@ -8,7 +8,7 @@ in vec3 vWorldNormal;
 out vec4 fragColor;
 
 // TODO: uncomment these lines
-//uniform sampler2D envmap;
+uniform sampler2D envmap;
 
 float atan2(in float y, in float x)
 {
@@ -18,5 +18,10 @@ float atan2(in float y, in float x)
 void main()
 {
 	// TODO: write an appropriate code here
-	fragColor = vec4(0, 1, 0, 1);
+	vec3 ref = reflect(vWorldEyeDir, vWorldNormal);
+	float theta = asin(ref.y);
+	float phi = atan(ref.z, ref.x);
+	vec2 uv = vec2((phi + PI) / (2.0 * PI), 1.0 - (theta + PI/2.0) / PI);
+	vec4 color = texture2D(envmap, uv);
+	fragColor = color;
 }

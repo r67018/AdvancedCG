@@ -8,10 +8,12 @@ out vec3 vWorldNormal;
 
 uniform mat4 projModelViewMatrix;
 // TODO: uncomment these lines
-//uniform vec3 eye;
+uniform vec3 eye;
 
 void main()
 {
 	// TODO: write an appropriate code here
+	vWorldEyeDir = normalize(eye - vertexPosition.xyz);
+	vWorldNormal = vertexNormal;
 	gl_Position = projModelViewMatrix * vertexPosition;
 }
