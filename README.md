@@ -3,18 +3,18 @@
 
 ## 🚀 GitHub Codespacesで実行する（推奨）
 
-このリポジトリはGitHub Codespacesに完全対応しています。コンテナ起動時に自動的にVNCサーバーが起動し、ブラウザでGUIアプリケーションを表示できます。
-
-### 🆕 Nixベースのdevcontainer
-
-再現性の高いNix環境も利用可能です！詳細は [CODESPACES_NIX.md](./CODESPACES_NIX.md) を参照してください。
+このリポジトリはGitHub Codespacesに完全対応しています（Nixベース）。コンテナ起動時に自動的にVNCサーバーが起動し、ブラウザでGUIアプリケーションを表示できます。
 
 ### クイックスタート
 
 1. **Codespacesを開く** - VNCサーバーが自動起動します
-2. **ポート6080をブラウザで開く** - VS Code下部の「ポート」タブから
+2. **ポート6080をブラウザで開く** - VS Code下部の「ポート」タブから、`vnc.html`にアクセス
 3. **プログラムを実行**:
 ```bash
+# Nix環境に入る
+nix develop /workspace#devcontainer
+
+# ビルド・実行
 cd Advanced01/src
 make run
 ```
