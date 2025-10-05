@@ -5,6 +5,10 @@
 
 このリポジトリはGitHub Codespacesに完全対応しています。コンテナ起動時に自動的にVNCサーバーが起動し、ブラウザでGUIアプリケーションを表示できます。
 
+### 🆕 Nixベースのdevcontainer
+
+再現性の高いNix環境も利用可能です！詳細は [CODESPACES_NIX.md](./CODESPACES_NIX.md) を参照してください。
+
 ### クイックスタート
 
 1. **Codespacesを開く** - VNCサーバーが自動起動します
@@ -27,6 +31,22 @@ make run
 * vc-x64-libs: Visual Studio のバージョン別のライブラリファイル
 
 ## 自分のパソコンで環境構築する方法
+
+### Nix（Linux/Mac/WSL2）🆕 推奨
+
+Nixパッケージマネージャを使用すると、OS問わず再現性の高い開発環境を構築できます。
+
+```bash
+# Nix開発環境に入る
+nix develop
+
+# ビルド・実行
+cd Advanced01/src
+make run
+```
+
+**詳細は [NIX_SETUP.md](./NIX_SETUP.md) を参照してください。**
+
 ### Windows
 * もし自分の PC に Visual Studio 2022 がインストールされていない場合は，藤澤先生の講義資料フォルダ(SharePoint)の「[Visual Studio Community インストール方法.pdf](https://o365tsukuba.sharepoint.com/sites/msteams_087e13/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2Fmsteams%5F087e13%2FShared%20Documents%2FGeneral%2Fadvancedcg&p=true&ga=1)」 を参考にしてインストールしてください。
 
